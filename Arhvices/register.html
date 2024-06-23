@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会員登録</title>
+    <!--CSS-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!--会員登録-->
+    <h1>会員登録フォーム</h1>
+    <form id="register-form" action="backend/service_register.php" method="POST">
+        <!--1.USER Name -->
+        Username: <input type="text" name="username" required><br>
+        <!--2.Password -->
+        Password: <input type="password" name="password" required><br>
+        <input type="submit" value="Register">
+    </form>
+    <!-- Registration message will be displayed here -->
+    <div id="registration-message"></div>
+
+<script>
+    // EVENT "submit" Listen
+    document.getElementById("register-form").addEventListener("submit", 
+    function(event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+        var xhr = new XMLHttpRequest(); 
+        xhr.open("POST", "backend/service_register.php", true);
+        xhr.onload = function() {
+            if (xhr.status == 200) {
+                //HTML形のErrorメッセージを読めるように
+                document.getElementById("registration-message").innerHTML = xhr.responseText;
+                if (xhr.responseText.includes("Registration successful!")) {
+                    setTimeout(function() {
+                        window.location.href = '../index.html';}, 2000);
+                }
+            }
+        };
+        xhr.send(formData);
+    });
+</script>
+
+</body>
+</html>

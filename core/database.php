@@ -13,7 +13,8 @@ class Database {
             PDO::ATTR_PERSISTENT => true,
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         );
-
+        
+        //Mysql Connection成功可否
         try {
             $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
         } catch (PDOException $e) {
@@ -25,6 +26,10 @@ class Database {
         $this->stmt = $this->dbh->prepare($sql);
     }
 
+    //SQL parameters binding
+    //--$param: sql query
+    //--$value: sql query's placeholder.
+    //--$type = set data type automatically
     public function bind($param, $value, $type = null) {
         if (is_null($type)) {
             switch (true) {
@@ -43,19 +48,16 @@ class Database {
         }
         $this->stmt->bindValue($param, $value, $type);
     }
-
+    
+    //SQL execution
     public function execute() {
         return $this->stmt->execute();
     }
-
+    //Get Query result
     public function resultSet() {
         $this->execute();
         return $this->stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function single() {
-        $this->execute();
-        return $this->stmt->fetch(PDO::FETCH_OBJ);
-    }
 }
 ?>
