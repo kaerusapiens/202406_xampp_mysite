@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('mermaid.mmd')
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById('mermaidContainer').innerHTML = text;
+                mermaid.initialize({ startOnLoad: true, theme: 'default' });
+                mermaid.contentLoaded();
+            })
+            .catch(error => console.error('Error loading Mermaid diagram:', error));
+    });
+    </script>
+</head>
+<body>
+    <!-- Container for the Mermaid diagram -->
+    <div id="mermaidContainer" class="mermaid">
+        <!-- The content of mermaid.mmd will be loaded here -->
+    </div>
+</body>
+</html>
