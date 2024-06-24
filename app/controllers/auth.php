@@ -26,7 +26,7 @@ class AuthController {
                 die('Passwords do not match.');
             }
         } else {
-            require_once '../app/views/register.php';
+            require_once 'app/views/register.php';
         }
     }
 
@@ -48,7 +48,7 @@ class AuthController {
                 die('Login failed.');
             }
         } else {
-            require_once '../app/views/login.php';
+            require_once 'app/views/login.php';
         }
     }
 
