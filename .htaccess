@@ -4,6 +4,8 @@ AddType application/x-httpd-php .html
 RewriteEngine On
 RewriteBase /
 
-
+# Redirect /login to /login.php
 RewriteRule ^login$ /login.php [L]
+
+# Redirect /register to /register.php
 RewriteRule ^register$ /register.php [L]

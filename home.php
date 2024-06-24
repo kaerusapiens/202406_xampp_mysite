@@ -16,10 +16,7 @@
         </form>
     <?php else: ?>
         <p>You are not logged in.</p>
-        <!--Login-->
-        <a href="/login">Login</a><br>
-        <!--Register-->
-        <a href="/register">Register</a>
+
     <?php endif; ?>
 </body>
 </html>
