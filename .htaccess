@@ -1,3 +1,9 @@
 AddHandler application/x-httpd-php .html
 AddType application/x-httpd-php .html
 
+RewriteEngine On
+RewriteBase /
+
+
+RewriteRule ^login$ /login.php [L]
+RewriteRule ^register$ /register.php [L]

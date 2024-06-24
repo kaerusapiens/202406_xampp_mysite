@@ -1,5 +1,5 @@
 <?php
-require_once '../app/models/user.php';
+require_once 'app/models/users.php';
 
 class AuthController {
     private $userModel;

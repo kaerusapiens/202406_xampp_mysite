@@ -9,15 +9,16 @@
 </head>
 
 <body>
-    <h2>Hello World!</h2>
-    <?php if (isset($_SESSION['user_id'])): ?>
+    <?php if (isset($_SESSION['session_id'])): ?>
         <p>Hello, <?php echo $_SESSION['user_id']; ?>!</p>
         <form action="/logout" method="post">
             <button type="submit">Logout</button>
         </form>
     <?php else: ?>
         <p>You are not logged in.</p>
-        <a href="/login">Login</a>
+        <!--Login-->
+        <a href="/login">Login</a><br>
+        <!--Register-->
         <a href="/register">Register</a>
     <?php endif; ?>
 </body>
