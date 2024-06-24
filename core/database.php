@@ -1,9 +1,9 @@
 <?php
 class Database {
-    private $host = DB_HOST
-    private $user = DB_USER
-    private $pass = DB_PASS
-    private $dbname = DB_NAME
+    private $host = DB_HOST;
+    private $user = DB_USER;
+    private $pass = DB_PASS;
+    private $dbname = DB_NAME;
     private $dbh;
     private $stmt;
 
@@ -57,6 +57,11 @@ class Database {
     public function resultSet() {
         $this->execute();
         return $this->stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function single() {
+        $this->execute();
+        return $this->stmt->fetch(PDO::FETCH_OBJ);
     }
 
 }

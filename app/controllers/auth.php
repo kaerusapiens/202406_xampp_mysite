@@ -1,5 +1,5 @@
 <?php
-require_once 'app/models/User.php';
+require_once '../app/models/user.php';
 
 class AuthController {
     private $userModel;
@@ -11,7 +11,7 @@ class AuthController {
     public function register() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = [
-                'username' => trim($_POST['username']),
+                'user_id' => trim($_POST['user_id']),
                 'password' => trim($_POST['password']),
                 'confirm_password' => trim($_POST['confirm_password'])
             ];
@@ -26,29 +26,29 @@ class AuthController {
                 die('Passwords do not match.');
             }
         } else {
-            require_once 'app/views/register.php';
+            require_once '../app/views/register.php';
         }
     }
 
     public function login() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = [
-                'username' => trim($_POST['username']),
+                'user_id' => trim($_POST['user_id']),
                 'password' => trim($_POST['password'])
             ];
 
-            $loggedInUser = $this->userModel->login($data['username'], $data['password']);
+            $loggedInUser = $this->userModel->login($data['user_id'], $data['password']);
 
             if ($loggedInUser) {
                 session_start();
                 $_SESSION['user_id'] = $loggedInUser->id;
-                $_SESSION['username'] = $loggedInUser->username;
+                $_SESSION['user_id'] = $loggedInUser->user_id;
                 header('Location: /');
             } else {
                 die('Login failed.');
             }
         } else {
-            require_once 'app/views/login.php';
+            require_once '../app/views/login.php';
         }
     }
 

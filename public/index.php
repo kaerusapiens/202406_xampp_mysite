@@ -2,13 +2,13 @@
 session_start();
 
 require_once '../config/config.php';
-require_once '../app/controllers/AuthController.php';
+require_once '../app/controllers/auth.php';
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 switch ($uri) {
     case '/':
-        if (isset($_SESSION['username'])) {
+        if (isset($_SESSION['user_id'])) {
             require_once '../app/views/home.php';
         } else {
             header('Location: /login');
