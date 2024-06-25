@@ -9,24 +9,19 @@ $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 switch ($uri) {
     case '/':
-        require_once 'home.php';
-        /*if (isset($_SESSION['user_id'])) {
-            require_once 'home.php';
-        /} else {
-            header('Location: /login');
-        }
-        break;*/
+        require_once 'app/views/home.php';
+        break;
     case '/register':
         $authController = new AuthController();
-        $authController->register();
+        $authController->register_controller();
         break;
     case '/login':
         $authController = new AuthController();
-        $authController->login();
+        $authController->login_controller();
         break;
     case '/logout':
         $authController = new AuthController();
-        $authController->logout();
+        $authController->logout_controller();
         break;
     default:
         http_response_code(404);

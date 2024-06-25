@@ -8,7 +8,7 @@ class AuthController {
         $this->userModel = new User();
     }
 
-    public function register() {
+    public function register_controller() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = [
                 'user_id' => trim($_POST['user_id']),
@@ -30,7 +30,7 @@ class AuthController {
         }
     }
 
-    public function login() {
+    public function login_controller() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = [
                 'user_id' => trim($_POST['user_id']),
@@ -41,8 +41,8 @@ class AuthController {
 
             if ($loggedInUser) {
                 session_start();
-                $_SESSION['user_id'] = $loggedInUser->id;
-                $_SESSION['user_id'] = $loggedInUser->user_id;
+                $_SESSION['session_id'] = $loggedInUser->id;
+                $_SESSION['session_id'] = $loggedInUser->user_id;
                 header('Location: /');
             } else {
                 die('Login failed.');
@@ -52,7 +52,7 @@ class AuthController {
         }
     }
 
-    public function logout() {
+    public function logout_controller() {
         session_start();
         session_unset();
         session_destroy();

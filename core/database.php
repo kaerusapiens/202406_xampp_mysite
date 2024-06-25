@@ -22,7 +22,7 @@ class Database {
         }
     }
 
-    public function query($sql) {
+    public function prepareStatement($sql) {
         $this->stmt = $this->dbh->prepare($sql);
     }
 
@@ -30,8 +30,9 @@ class Database {
     //--$param: sql query
     //--$value: sql query's placeholder.
     //--$type = set data type automatically
-    public function bind($param, $value, $type = null) {
-        if (is_null($type)) {
+    public function bind($params = []) {
+        foreach ($params as $param => $value) {
+            // Determine PDO parameter type based on PHP type
             switch (true) {
                 case is_int($value):
                     $type = PDO::PARAM_INT;
@@ -43,10 +44,13 @@ class Database {
                     $type = PDO::PARAM_NULL;
                     break;
                 default:
-                    $type = PDO::PARAM_STR;
+                    $type = PDO::PARAM_STR; // Default type for strings
             }
+    
+            // Bind parameter with determined type
+            $this->stmt->bindValue($param, $value, $type);
         }
-        $this->stmt->bindValue($param, $value, $type);
+        return $this; // Return $this for method chaining
     }
     
     //SQL execution
@@ -63,6 +67,8 @@ class Database {
         $this->execute();
         return $this->stmt->fetch(PDO::FETCH_OBJ);
     }
+
+
 
 }
 ?>
