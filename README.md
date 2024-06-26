@@ -24,6 +24,9 @@
 * /reigster, /login 404 page error
 -> sloved by the .htaccess issue 
 
+* yaml download error - 'composer' is not recognized as an internal or external commnad
+https://getcomposer.org/download/
+
 ```mermaid
 graph TD;
     A-->B;

@@ -1,5 +1,6 @@
 <?php
 require_once 'app/models/users.php';
+require_once 'pw_validation.php';
 
 class AuthController {
     private $userModel;
@@ -10,6 +11,10 @@ class AuthController {
 
     public function register_controller() {
         require_once 'app/views/register.php';
+        // Validate password before proceeding
+        if (!PasswordValidator::validate($data['password'])) {
+            return false; // Password validation failed
+        }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = [
                 'user_id' => trim($_POST['user_id']),
