@@ -19,9 +19,15 @@
 
 
 
+## error_log
+
+* /reigster, /login 404 page error
+-> sloved by the .htaccess issue 
+
 ```mermaid
 graph TD;
     A-->B;
     A-->C;
     B-->D;
     C-->D;
+```

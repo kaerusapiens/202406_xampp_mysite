@@ -12,10 +12,12 @@ switch ($uri) {
         require_once 'app/views/home.php';
         break;
     case '/register':
+        require_once 'app/views/register.php';
         $authController = new AuthController();
         $authController->register_controller();
         break;
     case '/login':
+        require_once 'app/views/login.php';
         $authController = new AuthController();
         $authController->login_controller();
         break;

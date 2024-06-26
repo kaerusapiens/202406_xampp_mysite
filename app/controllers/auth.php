@@ -9,6 +9,7 @@ class AuthController {
     }
 
     public function register_controller() {
+        require_once 'app/views/register.php';
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = [
                 'user_id' => trim($_POST['user_id']),
@@ -31,6 +32,7 @@ class AuthController {
     }
 
     public function login_controller() {
+        require_once 'app/views/login.php';
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = [
                 'user_id' => trim($_POST['user_id']),
