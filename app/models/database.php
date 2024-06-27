@@ -11,11 +11,6 @@ class Database {
     public function __construct() {
 
         $config =  YAMLParser::parse('config/config.yml');
-        //yaml debuggin
-        echo '<pre>';
-        print_r($config);
-        echo '</pre>';
-
     
 
         $this->host = $config['database']['host'];
