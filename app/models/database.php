@@ -10,7 +10,7 @@ class Database {
 
     public function __construct() {
         // Load the YAML configuration file using SimpleYAMLParser
-        $config =  YAMLParser::parse(__DIR__ . '/../../config/config.yml');
+        $config =  YAMLParser::parse('config/config.yml');
         $this->host = $config['database']['host'];
         $this->user = $config['database']['user_id'];
         $this->pass = $config['database']['password'];
