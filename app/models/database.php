@@ -9,12 +9,21 @@ class Database {
     private $stmt;
 
     public function __construct() {
-        // Load the YAML configuration file using SimpleYAMLParser
+
         $config =  YAMLParser::parse('config/config.yml');
+        //yaml debuggin
+        echo '<pre>';
+        print_r($config);
+        echo '</pre>';
+
+    
+
         $this->host = $config['database']['host'];
         $this->user = $config['database']['user_id'];
         $this->pass = $config['database']['password'];
         $this->dbname = $config['database']['dbname'];
+
+
         $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
         $options = array(
             PDO::ATTR_PERSISTENT => true,

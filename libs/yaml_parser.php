@@ -21,15 +21,17 @@ class YAMLParser {
                 $value = trim($value, '"\'');
             }
 
+            // Set nested values using dot notation
             $config = self::setValue($config, $key, $value);
         }
 
         return $config;
     }
 
-    private static function setValue($array, $keys, $value) {
+    private static function setValue(&$array, $keys, $value) {
         $keys = explode('.', $keys);
         $ref = &$array;
+
         foreach ($keys as $key) {
             if (!isset($ref[$key])) {
                 $ref[$key] = [];
