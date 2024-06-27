@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-require_once 'libs/yaml_parser.php'; 
 require_once 'app/controllers/auth.php';
 
 
@@ -13,7 +12,6 @@ switch ($uri) {
         require_once 'app/views/home.php';
         break;
     case '/register':
-        require_once 'app/controllers/pw_validation.php';
         $authController = new AuthController();
         $authController->register_controller();
         break;
