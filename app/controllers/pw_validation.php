@@ -3,13 +3,26 @@ class PasswordValidator {
     private static $frontText = "Passwordには少なくとも";
     private static $more_endText = "以上にしてください。";
     private static $less_endText = "以下にしてください。";
-    private static $minLengthMessage =  self::$frontText . "%d文字" . self::$less_endText;
-    private static $uppercaseMessage = self::$frontText . "1つの大文字" . self::$more_endText;
-    private static $lowercaseMessage = self::$frontText . "1つの小文字" . self::$more_endText;
-    private static $digitMessage = self::$frontText . "1つの数字" . self::$more_endText;
-    private static $specialCharMessage = self::$frontText . "1つの特殊文字" . self::$more_endText;
+    private static $minLengthMessage;
+    private static $uppercaseMessage;
+    private static $lowercaseMessage;
+    private static $digitMessage;
+    private static $specialCharMessage;
+
+    // Static initializer to set the messages
+    private static function initializeMessages() {
+        if (self::$minLengthMessage === null) { // Check if already initialized
+            self::$minLengthMessage = self::$frontText . "%d文字" . self::$less_endText;
+            self::$uppercaseMessage = self::$frontText . "1つの大文字" . self::$more_endText;
+            self::$lowercaseMessage = self::$frontText . "1つの小文字" . self::$more_endText;
+            self::$digitMessage = self::$frontText . "1つの数字" . self::$more_endText;
+            self::$specialCharMessage = self::$frontText . "1つの特殊文字" . self::$more_endText;
+        }
+    }
+
 
     public static function validate($password) {
+        self::initializeMessages();
         // Check if password length is at least 8 characters
         if (strlen($password) > 8) {
             echo sprintf(self::$minLengthMessage, 8);

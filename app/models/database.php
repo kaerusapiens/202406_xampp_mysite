@@ -1,13 +1,20 @@
 <?php
+require_once 'libs/yaml_parser.php'; 
 class Database {
-    private $host = DB_HOST;
-    private $user = DB_USER;
-    private $pass = DB_PASS;
-    private $dbname = DB_NAME;
+    private $host;
+    private $user;
+    private $pass;
+    private $dbname;
     private $dbh;
     private $stmt;
 
     public function __construct() {
+        // Load the YAML configuration file using SimpleYAMLParser
+        $config =  YAMLParser::parse(__DIR__ . '/../../config/config.yml');
+        $this->host = $config['database']['host'];
+        $this->user = $config['database']['user_id'];
+        $this->pass = $config['database']['password'];
+        $this->dbname = $config['database']['dbname'];
         $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
         $options = array(
             PDO::ATTR_PERSISTENT => true,
