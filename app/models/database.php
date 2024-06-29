@@ -1,5 +1,6 @@
 <?php
-require_once 'libs/yaml_parser.php'; 
+require 'vendor/autoload.php';
+use Symfony\Component\Yaml\Yaml;
 class Database {
     private $host;
     private $user;
@@ -10,9 +11,7 @@ class Database {
 
     public function __construct() {
 
-        $config =  YAMLParser::parse('config/config.yml');
-    
-
+        $config =  Yaml::parseFile('config/config.yml');
         $this->host = $config['database']['host'];
         $this->user = $config['database']['user_id'];
         $this->pass = $config['database']['password'];

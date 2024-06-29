@@ -21,7 +21,7 @@
         event.preventDefault();
         var formData = new FormData(this);
         var xhr = new XMLHttpRequest(); 
-        xhr.open("POST", "backend/service_register.php", true);
+        xhr.open("POST", "app/controllers/auth.php", true);
         xhr.onload = function() {
             if (xhr.status == 200) {
                 //HTML形のErrorメッセージを読めるように

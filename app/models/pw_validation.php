@@ -1,4 +1,5 @@
 <?php
+
 class PasswordValidator {
     private static $frontText = "Passwordには少なくとも";
     private static $more_endText = "以上にしてください。";
@@ -20,11 +21,11 @@ class PasswordValidator {
         }
     }
 
-
     public static function validate($password) {
         self::initializeMessages();
+
         // Check if password length is at least 8 characters
-        if (strlen($password) > 8) {
+        if (strlen($password) < 8) {
             echo sprintf(self::$minLengthMessage, 8);
             return false;
         }
@@ -52,7 +53,6 @@ class PasswordValidator {
             echo self::$specialCharMessage;
             return false;
         }
-
 
         return true;
     }

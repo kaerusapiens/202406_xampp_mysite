@@ -1,36 +1,27 @@
 <?php
 require_once 'database.php';
+require_once 'pw_validation.php';
 
 class User {
     private $db;
     private $table_name = "users";
+    private $userModel;
 
     public function __construct() {
         $this->db = new Database();
+        $this->userModel = new User();
     }
 
-    // Password Validator Method
-    private function validatePassword($password) {
-        // Check if password length is between 1 to 10 characters
-        if (strlen($password) < 1 || strlen($password) > 10) {
-            return false;
-        }
-        
-        // Check if password contains only allowed characters (alphanumeric + !*#$%)
-        if (!preg_match('/^[a-zA-Z0-9!*#$%]+$/', $password)) {
-            return false;
-        }
-
-        return true;
-    }
 
     // Register Method
     public function register($data) {
-        // Validate password before proceeding
-        if (!$this->validatePassword($data['password'])) {
+        // Check if user_id already exists
+        if ($this->userModel->getUserById($data['user_id'])) {
+            die('User already exists.'); // Show error message
+        }
+        if (!PasswordValidator::validate($data['password'])) {
             return false; // Password validation failed
         }
-    
         // Generate salt and hash password
         $salt = bin2hex(random_bytes(32));
         $hashed_password = password_hash($data['password'] . $salt, PASSWORD_BCRYPT);
@@ -65,6 +56,16 @@ class User {
         } else {
             return false;
         }
+    }
+    // Get User by ID Method
+    public function getUserById($user_id) {
+        $query = "SELECT * FROM {$this->table_name} WHERE user_id = :user_id";
+        $this->db->prepareStatement($query);
+        $params = [
+            ':user_id' => $user_id
+        ];
+        $this->db->bind($params);
+        return $this->db->single(); // Return single row or false if not found
     }
 }
 ?>
