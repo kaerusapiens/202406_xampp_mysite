@@ -27,6 +27,8 @@
 * /reigster, /login error (after adding yaml)
 -> installed php composer on xampp (window version)
 -> install symfony/yaml using composer `composer require symfony/yaml`  
-    * Package manager - composer
+    * Package manager - composer / symfony - framework
 
 >Fatal error: Uncaught TypeError: Cannot access offset of type string on string in C:\xampp\htdocs\public\app\models\database.php:14 Stack trace: #0 C:\xampp\htdocs\public\app\models\users.php(9): Database->__construct() #1 C:\xampp\htdocs\public\app\controllers\auth.php(9): User->__construct() #2 C:\xampp\htdocs\public\index.php(17): AuthController->__construct() #3 {main} thrown in C:\xampp\htdocs\public\app\models\database.php on line 14
+
+-> /register page database.php runs endlessly.

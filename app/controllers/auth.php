@@ -9,26 +9,30 @@ class AuthController {
     }
 
     public function register_controller() {
-        require_once 'app/views/register.php';
-
+        ini_set('display_errors', 1); // Display errors on screen
+        echo "Debug: Inside register_controller<br>";
+        var_dump($_POST); // Check if POST data is received
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            error_log('POST request detected'); // Log to PHP error log
+            echo "start post";
             $data = [
                 'user_id' => trim($_POST['user_id']),
                 'password' => trim($_POST['password']),
                 'confirm_password' => trim($_POST['confirm_password'])
             ];
-
-
             if ($data['password'] == $data['confirm_password']) {
                 if ($this->userModel->register($data)) {
-                    header('Location: /login');
+                    header('Location: /');
+                    exit;
                 } else {
                     die('Something went wrong.');
                 }
             } else {
                 die('Passwords do not match.');
             }
-        } else {
+        } 
+        else {
+            echo "not yetstart post";
             require_once 'app/views/register.php';
         }
     }

@@ -1,0 +1,7 @@
+# Database configuration
+# wihtout "" -> shmpony framework pharse error arise
+database:
+  host: localhost
+  user_id: root
+  password: "icandoit"
+  dbname: "core"
