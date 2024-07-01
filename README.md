@@ -8,7 +8,7 @@
 ![screenshot](img/logout.png)
 
 
-# Registeration
+# Registration
 
 * Password validation
     * length>8
