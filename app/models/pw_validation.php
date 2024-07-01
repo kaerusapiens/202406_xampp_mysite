@@ -26,35 +26,31 @@ class PasswordValidator {
 
         // Check if password length is at least 8 characters
         if (strlen($password) < 8) {
-            echo sprintf(self::$minLengthMessage, 8);
-            return false;
+            return sprintf(self::$minLengthMessage, 8);
         }
+        
 
         // Check if password contains at least one uppercase letter
         if (!preg_match('/[A-Z]/', $password)) {
-            echo self::$uppercaseMessage;
-            return false;
+            return self::$uppercaseMessage;
         }
 
         // Check if password contains at least one lowercase letter
         if (!preg_match('/[a-z]/', $password)) {
-            echo self::$lowercaseMessage;
-            return false;
+            return self::$lowercaseMessage;
         }
 
         // Check if password contains at least one digit
         if (!preg_match('/[0-9]/', $password)) {
-            echo self::$digitMessage;
-            return false;
+            return self::$digitMessage;
         }
 
         // Check if password contains at least one special character
         if (!preg_match('/[!@#\^&*,.?]/', $password)) {  // Updated regex to include valid special characters
-            echo self::$specialCharMessage;
-            return false;
+            return self::$specialCharMessage;
         }
 
-        return true;
+        return true; // Password is valid
     }
 }
 ?>

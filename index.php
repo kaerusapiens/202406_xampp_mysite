@@ -2,25 +2,22 @@
 session_start();
 
 require_once 'app/controllers/auth.php';
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 
 
 switch ($uri) {
-    case '/':
+    case '':
         require_once 'app/views/home.php';
         break;
-    case '/test':
-        require_once 'app/views/test.php';
-        break;
-    case '/register':
+    case 'register':
         $authController = new AuthController();
         $authController->register_controller();
         break;
-    case '/login':
+    case 'login':
         $authController = new AuthController();
         $authController->login_controller();
         break;
-    case '/logout':
+    case 'logout':
         $authController = new AuthController();
         $authController->logout_controller();
         break;

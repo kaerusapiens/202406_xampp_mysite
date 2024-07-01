@@ -1,14 +1,12 @@
 <?php
 require 'vendor/autoload.php';
 use Symfony\Component\Yaml\Yaml;
-set_time_limit(10);
+
 class Database {
     private $host;
     private $user;
     private $pass;
     private $dbname;
-    private $dbh;
-    private $stmt;
     private $conn;
 
     public function __construct() {
@@ -21,73 +19,37 @@ class Database {
         $this->pass = $config['database']['password'];
         $this->dbname = $config['database']['dbname'];
 
+        $this->connect();
+    }
+
+    private function connect() {
+        $dsn = "mysql:host={$this->host};dbname={$this->dbname};charset=utf8mb4";
 
         try {
-            $conn = new mysqli($this->host, $this->user, $this->pass, $this->dbname);
-            if ($conn->connect_error) {
-                throw new Exception("Connection failed: " . $conn->connect_error);
-            }
-            echo "Connected successfully";
-            $conn->close();
-        } catch (Exception $e) {
+            $this->conn = new PDO($dsn, $this->user, $this->pass);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
             echo "Connection error: " . $e->getMessage();
         }
     }
-    public function __destruct() {
-        // Close the MySQLi connection when the object is destroyed
-        $this->conn->close();
-        echo "Connection closed<br>";
-    }
+
 
     public function executeQuery($sql, $params = []) {
-        $stmt = $this->conn->prepare($sql);
-        if ($stmt === false) {
-            die('Prepare statement failed: ' . $this->conn->error);
-        }
-    
-        // Bind parameters if any
-        if (!empty($params)) {
-            $types = '';
-            $bindParams = [];
-            foreach ($params as $param) {
-                $types .= $param['type'];
-                $bindParams[] = &$param['value'];
-            }
-    
-            array_unshift($bindParams, $types);
-            call_user_func_array([$stmt, 'bind_param'], $bindParams);
-        }
-    
-        // Execute the statement
-        if ($stmt->execute()) {
+        try {
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute($params);
             return $stmt;
-        } else {
-            die('Execute statement failed: ' . $stmt->error);
+        } catch (PDOException $e) {
+            die('Execute statement failed: ' . $e->getMessage());
         }
     }
 
-    //SQL parameters binding
-    //--$param: sql query
-    //--$value: sql query's placeholder.
-    //--$type = set data type automatically  return $this; // Return $this for method chaining
-    
-    //SQL execution
     public function fetchSingle($stmt) {
-        $result = $stmt->get_result();
-        return $result->fetch_assoc();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-    
-    // Example method to fetch all rows
+
     public function fetchAll($stmt) {
-        $result = $stmt->get_result();
-        $rows = [];
-        while ($row = $result->fetch_assoc()) {
-            $rows[] = $row;
-        }
-        return $rows;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
-
-
 }
 ?>
