@@ -1,16 +1,19 @@
 <?php
 require_once 'app/models/users.php';
+session_start();
 
 class AuthController {
     private $userModel;
-
+    private $sessionModel;
     public function __construct() {
         $this->userModel = new User();
+
     }
 
     public function register_controller() {
+        error_reporting(E_ALL);
+        ini_set('display_errors', 1);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            error_log('POST request detected'); // Log to PHP error log
             $data = [
                 'user_id' => trim($_POST['user_id']),
                 'password' => trim($_POST['password']),
@@ -21,12 +24,18 @@ class AuthController {
                 $result = $this->userModel->register($data);
                 
                 if ($result === true) {
-                    $message = "Registration successful!";
+                    echo "Registration successful!";
+                    $session_id = session_create_id(); // Generate session ID
+                
+                    // Insert session into session database
+                    $insert_result = $this->sessionModel->insertSession($user_id, $session_id);
+                    exit;
                 } else {
-                    $message = $result; // Error message from registration attempt
+                    echo $result;
+                    exit; // Error message from registration attempt
                 }
             } else {
-                die('Passwords do not match.');
+                echo 'Passwords do not match.';
             }
         } 
         else {
@@ -35,7 +44,8 @@ class AuthController {
     }
 
     public function login_controller() {
-        require_once 'app/views/login.php';
+        error_reporting(E_ALL);
+        ini_set('display_errors', 1);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = [
                 'user_id' => trim($_POST['user_id']),
@@ -45,10 +55,8 @@ class AuthController {
             $loggedInUser = $this->userModel->login($data['user_id'], $data['password']);
 
             if ($loggedInUser) {
-                session_start();
                 $_SESSION['session_id'] = $loggedInUser->id;
                 $_SESSION['session_id'] = $loggedInUser->user_id;
-                header('Location: /');
             } else {
                 die('Login failed.');
             }

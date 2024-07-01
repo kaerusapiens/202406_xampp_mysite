@@ -58,12 +58,11 @@ class User {
 
         // Execute the query
         $stmt = $this->db->executeQuery($query, $params);
-        
         // Fetch single row
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Verify password
-        if ($row && password_verify($password . $row->password_salt, $row->password)) {
+        if ($row && password_verify($password . $row['password_salt'], $row['password'])) {
             return $row; // Return user object
         } else {
             return false; // Login failed
