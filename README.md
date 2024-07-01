@@ -7,6 +7,30 @@
 
 ![screenshot](img/logout.png)
 
+
+# Registeration
+
+* Password validation
+    * length>8
+    * not including other language except alphanumeric characters
+    * Need at least 1 Capital letter of english.
+    * Need at least 1 number.
+    * Need at lest 1 special character  !@#\^&*,.?
+
+* Check if user already exist or not
+
+* Check if the password == cofrim password value is same or not. and if it is unmatched, show 'Passwords do not match.';
+
+# Logout
+
+* sessions being destroyed
+
+# Login
+
+* if login failed, show "Login failed"
+* if login successful, wait 4 secs and redirect to homepage, showing the logged in screen.
+
+
 # Database
 ## users
 | Field  | Data Type | Constrainsts  | Default Value | Special Attributes|
