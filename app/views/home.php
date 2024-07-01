@@ -9,7 +9,7 @@
 
 <br>
     <!--SESSION EXIST-->
-        <?php if (isset($_SESSION['session_id'])): ?>
+        <?php if (isset($_SESSION['user_id'])): ?>
             <p>Hello, 
                 <?php echo $_SESSION['user_id']; ?>!</p>
                 <form action="/logout" method="post">
@@ -18,7 +18,7 @@
     <!--SESSION NOT EXIST-->
         <?php else: ?>
             <p>You are not logged in.</p>
-        <?php endif; ?>
+
         <h2>Login</h2>
     <form action="/login" method="POST">
         <input type="text" name="user_id" placeholder="User_id" required><br/>
@@ -33,11 +33,6 @@
         <input type="password" name="confirm_password" placeholder="Confirm Password" required><br/>
         <button type="submit">Register</button>
     </form>
-
-    <?php if (!empty($message)): ?>
-        <div id="form">
-            <?php echo htmlspecialchars($message); ?>
-        </div>
-<?php endif; ?>
+    <?php endif; ?>
 </body>
 </html>

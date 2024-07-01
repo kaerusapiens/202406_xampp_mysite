@@ -55,8 +55,10 @@ class AuthController {
             $loggedInUser = $this->userModel->login($data['user_id'], $data['password']);
 
             if ($loggedInUser) {
-                $_SESSION['session_id'] = $loggedInUser->id;
-                $_SESSION['session_id'] = $loggedInUser->user_id;
+                $_SESSION['user_id'] = $loggedInUser['user_id'];
+                echo "login successful... redirect to homepage in 4 secs";
+                sleep(4); // 300 seconds = 5 minutes
+                header('Location: /');
             } else {
                 die('Login failed.');
             }
@@ -69,7 +71,7 @@ class AuthController {
         session_start();
         session_unset();
         session_destroy();
-        header('Location: /login');
+        header('Location: /');
     }
 }
 ?>
